@@ -1,14 +1,14 @@
 package med.voll.apimed.Controllers;
 
 import jakarta.validation.Valid;
-import med.voll.apimed.Medicos.*;
+import med.voll.apimed.domain.Medicos.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("medicos")
@@ -22,35 +22,40 @@ public class MedicosController {
 
     @PostMapping
     @Transactional
-    public Medico cadastrar(@RequestBody @Valid MedicosBody dados) {
+    public ResponseEntity<MedicosReturn> cadastrar(@RequestBody @Valid MedicosBody dados, UriComponentsBuilder uriBuilder) {
         var medico = new Medico(dados);
-        return medicoRepository.save(medico);
+        medicoRepository.save(medico);
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+        return ResponseEntity.created(uri).body(new MedicosReturn(medico));
     }
 
     @GetMapping
-    public Page<MedicosList> list(@PageableDefault(size = 5, sort = {"nome"}) Pageable pageable) {
-        return medicoRepository.findAllByAtivoTrue(pageable).map(MedicosList::new);
+    public ResponseEntity<Page<MedicosList>> list(@PageableDefault(size = 5, sort = {"nome"}) Pageable pageable) {
+        var page = medicoRepository.findAllByAtivoTrue(pageable).map(MedicosList::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public Medico atualizar(@RequestBody @Valid MedicosUpdateBody dados, @PathVariable Long id) {
+    public ResponseEntity<MedicosReturn> atualizar(@RequestBody @Valid MedicosUpdateBody dados, @PathVariable Long id) {
         var medico = medicoRepository.getReferenceById(id);
         medico.atualizarInformacoes(dados);
-        return medicoRepository.save(medico);
+
+        return ResponseEntity.ok(new MedicosReturn(medicoRepository.save(medico)));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluir(@PathVariable Long id) {
+    public ResponseEntity<MedicosReturn> excluir(@PathVariable Long id) {
         var medico = medicoRepository.getReferenceById(id);
         medico.excluir();
         medicoRepository.save(medico);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public Medico detalhar(@PathVariable Long id) {
-        return medicoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Médico não encontrado"));
+    public ResponseEntity<MedicosReturn> detalhar(@PathVariable Long id) {
+        var medico = medicoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new MedicosReturn(medico));
     }
 }

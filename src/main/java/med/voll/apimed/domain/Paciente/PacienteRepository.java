@@ -1,6 +1,5 @@
-package med.voll.apimed.Paciente;
+package med.voll.apimed.domain.Paciente;
 
-import io.micrometer.observation.ObservationFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

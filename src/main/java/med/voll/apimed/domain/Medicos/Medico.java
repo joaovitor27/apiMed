@@ -1,11 +1,10 @@
-package med.voll.apimed.Medicos;
+package med.voll.apimed.domain.Medicos;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.apimed.Endereco.Endereco;
+import med.voll.apimed.domain.Endereco.Endereco;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;

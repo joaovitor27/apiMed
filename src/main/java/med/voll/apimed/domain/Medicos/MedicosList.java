@@ -1,4 +1,4 @@
-package med.voll.apimed.Medicos;
+package med.voll.apimed.domain.Medicos;
 
 public record MedicosList(
         Long id,

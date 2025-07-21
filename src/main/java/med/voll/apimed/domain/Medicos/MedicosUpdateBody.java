@@ -1,6 +1,6 @@
-package med.voll.apimed.Medicos;
+package med.voll.apimed.domain.Medicos;
 
-import med.voll.apimed.Endereco.EnderecoBody;
+import med.voll.apimed.domain.Endereco.EnderecoBody;
 
 public record MedicosUpdateBody(
         String nome,

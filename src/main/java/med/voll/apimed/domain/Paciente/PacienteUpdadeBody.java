@@ -1,6 +1,6 @@
-package med.voll.apimed.Paciente;
+package med.voll.apimed.domain.Paciente;
 
-import med.voll.apimed.Endereco.EnderecoBody;
+import med.voll.apimed.domain.Endereco.EnderecoBody;
 
 public record PacienteUpdadeBody(
         String nome,

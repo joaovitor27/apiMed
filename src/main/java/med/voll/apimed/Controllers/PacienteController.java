@@ -1,13 +1,13 @@
 package med.voll.apimed.Controllers;
 
 import jakarta.validation.Valid;
-import med.voll.apimed.Paciente.*;
+import med.voll.apimed.domain.Paciente.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("pacientes")
@@ -21,34 +21,40 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public Paciente cadastrar(@RequestBody @Valid DadosCadastroPaciente dados) {
-        return repository.save(new Paciente(dados));
+    public ResponseEntity<PacienteRetorno> cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
+        var paciente = new Paciente(dados);
+        repository.save(paciente);
+        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new PacienteRetorno(paciente));
     }
 
     @GetMapping
-    public Page<PacienteList> list(Pageable pageable) {
-        return repository.findAllByAtivoTrue(pageable).map(PacienteList::new);
+    public ResponseEntity<Page<PacienteList>> list(Pageable pageable) {
+        var page = repository.findAllByAtivoTrue(pageable).map(PacienteList::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public Paciente atualizar(@RequestBody @Valid PacienteUpdadeBody dados, @PathVariable Long id) {
+    public ResponseEntity<PacienteRetorno> atualizar(@RequestBody @Valid PacienteUpdadeBody dados, @PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.atualizarInformacoes(dados);
-        return repository.save(paciente);
+        repository.save(paciente);
+        return ResponseEntity.ok(new PacienteRetorno(paciente));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluir(@PathVariable Long id) {
+    public ResponseEntity<PacienteRetorno> excluir(@PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.excluir();
         repository.save(paciente);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public Paciente detalhar(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
+    public ResponseEntity<PacienteRetorno> detalhar(@PathVariable Long id) {
+        var paciente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new PacienteRetorno(paciente));
     }
 }

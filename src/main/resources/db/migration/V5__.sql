@@ -1,0 +1,2 @@
+ALTER TABLE medicos
+    ADD ativo BIT(1) DEFAULT 1 NULL;

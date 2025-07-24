@@ -1,10 +1,10 @@
 package med.voll.apimed.Controllers;
 
 import jakarta.validation.Valid;
-import med.voll.apimed.domain.Usuario.DadosAutenticacao;
-import med.voll.apimed.domain.Usuario.Usuario;
-import med.voll.apimed.infra.security.DadosTokenJWT;
-import med.voll.apimed.infra.security.TokenServices;
+import med.voll.apimed.Domain.Usuario.DadosAutenticacao;
+import med.voll.apimed.Domain.Usuario.Usuario;
+import med.voll.apimed.Infra.Security.DadosTokenJWT;
+import med.voll.apimed.Infra.Security.TokenServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package med.voll.apimed.domain.Usuario;
+package med.voll.apimed.Domain.Usuario;
 
 public record DadosAutenticacao(
         String login,

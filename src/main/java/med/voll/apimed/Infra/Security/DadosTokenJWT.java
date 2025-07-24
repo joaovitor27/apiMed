@@ -1,4 +1,4 @@
-package med.voll.apimed.infra.security;
+package med.voll.apimed.Infra.Security;
 
 public record DadosTokenJWT(String token) {
 }

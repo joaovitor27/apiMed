@@ -1,7 +1,7 @@
 package med.voll.apimed.Controllers;
 
 import jakarta.validation.Valid;
-import med.voll.apimed.domain.Paciente.*;
+import med.voll.apimed.Domain.Paciente.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

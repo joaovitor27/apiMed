@@ -1,10 +1,10 @@
-package med.voll.apimed.domain.Medicos;
+package med.voll.apimed.Domain.Medicos;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.apimed.domain.Endereco.Endereco;
+import med.voll.apimed.Domain.Endereco.Endereco;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;

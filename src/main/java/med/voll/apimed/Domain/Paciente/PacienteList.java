@@ -1,6 +1,6 @@
-package med.voll.apimed.domain.Paciente;
+package med.voll.apimed.Domain.Paciente;
 
-import med.voll.apimed.domain.Endereco.Endereco;
+import med.voll.apimed.Domain.Endereco.Endereco;
 
 public record PacienteList(
         Long id,

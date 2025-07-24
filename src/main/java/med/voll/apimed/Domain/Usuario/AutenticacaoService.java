@@ -1,4 +1,4 @@
-package med.voll.apimed.domain.Usuario;
+package med.voll.apimed.Domain.Usuario;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,10 +1,10 @@
-package med.voll.apimed.domain.Paciente;
+package med.voll.apimed.Domain.Paciente;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.apimed.domain.Endereco.Endereco;
+import med.voll.apimed.Domain.Endereco.Endereco;
 
 @Getter
 @NoArgsConstructor

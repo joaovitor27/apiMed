@@ -1,6 +1,6 @@
-package med.voll.apimed.domain.Medicos;
+package med.voll.apimed.Domain.Medicos;
 
-import med.voll.apimed.domain.Endereco.Endereco;
+import med.voll.apimed.Domain.Endereco.Endereco;
 
 public record MedicosReturn(
     Long id,

@@ -1,4 +1,4 @@
-package med.voll.apimed.domain.Endereco;
+package med.voll.apimed.Domain.Endereco;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.Valid;
